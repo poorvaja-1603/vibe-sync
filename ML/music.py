@@ -3,46 +3,46 @@ import random
 
 EMOTION_TO_SONGS = {
     "angry": [
-        "Love You Zindagi",
-        "Ilahi Yeh Jawaani Hai Deewani",
-        "On Top of the World Imagine Dragons",
-        "Blinding Lights The Weeknd",
-        "Agar Tum Saath Ho Tamasha"
+        "Love You Zindagi Dear Zindagi original",
+        "Ilahi Yeh Jawaani Hai Deewani Arijit Singh",
+        "Imagine Dragons On Top of the World original",
+        "The Weeknd Blinding Lights original",
+        "Agar Tum Saath Ho Arijit Singh Tamasha"
     ],
     "fear": [
-        "Fix You Coldplay",
-        "Kabira Yeh Jawaani Hai Deewani",
-        "Phir Se Ud Chala Rockstar",
-        "Somewhere Only We Know Keane",
-        "Raahi Jab Harry Met Sejal"
+        "Coldplay Fix You original",
+        "Kabira Arijit Singh Yeh Jawaani Hai Deewani",
+        "Mohit Chauhan Phir Se Ud Chala Rockstar",
+        "Keane Somewhere Only We Know original",
+        "Anushka Shaikh Raahi Jab Harry Met Sejal"
     ],
     "sad": [
-        "Love You Zindagi",
-        "Levitating Dua Lipa",
-        "Good Life OneRepublic",
-        "Ilahi Yeh Jawaani Hai Deewani",
-        "Raabta Agent Vinod"
+        "Love You Zindagi Dear Zindagi original",
+        "Dua Lipa Levitating original",
+        "OneRepublic Good Life original",
+        "Ilahi Arijit Singh Yeh Jawaani Hai Deewani",
+        "Raabta Arijit Singh Agent Vinod original"
     ],
     "happy": [
-        "Dynamite BTS",
-        "Naal Nachhna Dhurandhar",
-        "Kesariya Brahmastra",
-        "Gangnam Style",
-        "Shape of You Ed Sheeran"
+        "BTS Dynamite original",
+        "Naal Nachna Dhurandhar original",
+        "Arijit Singh Kesariya Brahmastra",
+        "PSY Gangnam Style original",
+        "Ed Sheeran Shape of You original"
     ],
     "neutral": [
-        "Raataan Lambiyan Shershaah",
-        "Blinding Lights The Weeknd",
-        "Sunflower Post Malone",
-        "Heat Waves Glass Animals",
-        "Kho Gaye Hum Kahan"
+        "Jubin Nautiyal Raataan Lambiyan Shershaah",
+        "The Weeknd Blinding Lights original",
+        "Post Malone Sunflower original",
+        "Glass Animals Heat Waves original",
+        "Jasleen Royal Kho Gaye Hum Kahan"
     ],
     "surprise": [
-        "Happy Pharrell Williams",
-        "Butter BTS",
-        "Ilahi Yeh Jawaani Hai Deewani",
-        "Love You Zindagi",
-        "Namo Namo Kedarnath"
+        "Pharrell Williams Happy original",
+        "BTS Butter original",
+        "Arijit Singh Ilahi Yeh Jawaani Hai Deewani",
+        "Love You Zindagi Dear Zindagi original",
+        "Amit Trivedi Namo Namo Kedarnath"
     ]
 }
 
