@@ -4,7 +4,7 @@ An AI-powered web application that detects your facial emotion in real time usin
 
 ## Live Demo
 
-[vibesync on Vercel](https://vibe-sync-chi.vercel.app/)
+[vibesync on Vercel](https://vibe-sync-git-main-poorvaja-1603s-projects.vercel.app/)
 
 **Backend API:** https://vibe-sync-hy8w.onrender.com
 
