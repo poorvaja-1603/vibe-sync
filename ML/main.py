@@ -14,7 +14,9 @@ app = FastAPI(title="VibeSync API")
 # allow Next.js frontend to call this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js dev server
+    allow_origins=["http://localhost:3000",
+                   "https://vibe-sync-chi.vercel.app/",
+                   "https://vibe-sync-hy8w.onrender.com"],  # Next.js dev server
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
