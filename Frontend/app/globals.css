@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg:        #f0edf8;
+  --surface:   #ffffff;
+  --surface2:  #e8e3f5;
+  --border:    #d8d0ee;
+  --purple:    #7c3aed;
+  --pink:      #c026d3;
+  --lavender:  #a855f7;
+  --text:      #1e1530;
+  --muted:     #6b5f8a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(124, 58, 237, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(168, 85, 247, 0.05) 0%, transparent 60%);
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+::selection {
+  background: rgba(124, 58, 237, 0.2);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
