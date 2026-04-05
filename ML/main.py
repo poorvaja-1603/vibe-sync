@@ -15,7 +15,7 @@ app = FastAPI(title="VibeSync API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000",
-                   "https://vibe-sync-chi.vercel.app/",
+                   "https://vibe-sync-chi.vercel.app",
                    "https://vibe-sync-hy8w.onrender.com"],  # Next.js dev server
     allow_credentials=True,
     allow_methods=["*"],
