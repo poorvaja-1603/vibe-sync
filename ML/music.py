@@ -1,71 +1,124 @@
+import httpx
 import random
 
-EMOTION_TO_SONGS = {
-    "angry": [
-        {"name": "Love You Zindagi",        "artist": "Jasleen Royal",    "album_art": "https://c.saavncdn.com/494/Dear-Zindagi-Hindi-2016-500x500.jpg"},
-        {"name": "Ilahi",                   "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/440/Yeh-Jawaani-Hai-Deewani-2013-500x500.jpg"},
-        {"name": "On Top of the World",     "artist": "Imagine Dragons",  "album_art": "https://c.saavncdn.com/210/Night-Visions-2013-500x500.jpg"},
-        {"name": "Blinding Lights",         "artist": "The Weeknd",       "album_art": "https://c.saavncdn.com/820/Blinding-Lights-English-2020-20200912094411-500x500.jpg"},
-        {"name": "Agar Tum Saath Ho",       "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/994/Tamasha-Hindi-2015-500x500.jpg"},
-    ],
-
-    "fear": [
-        {"name": "Fix You",                 "artist": "Coldplay",         "album_art": "https://c.saavncdn.com/659/X-Y-English-2005-20201104171639-500x500.jpg"},
-        {"name": "Kabira",                  "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/440/Yeh-Jawaani-Hai-Deewani-2013-500x500.jpg"},
-        {"name": "Phir Se Ud Chala",        "artist": "Mohit Chauhan",    "album_art": "https://c.saavncdn.com/408/Rockstar-Hindi-2011-20221212023139-500x500.jpg"},
-        {"name": "Somewhere Only We Know",  "artist": "Keane",            "album_art": "https://c.saavncdn.com/079/Somewhere-Only-We-Know-English-2022-20240824160837-500x500.jpg"},
-        {"name": "Hawayein",                   "artist": "Pritam",        "album_art": "https://c.saavncdn.com/584/Jab-Harry-Met-Sejal-Hindi-2017-20170803161007-500x500.jpg"},
-    ],
-
+EMOTION_TO_QUERIES = {
     "sad": [
-        {"name": "Love You Zindagi",        "artist": "Jasleen Royal",    "album_art": "https://c.saavncdn.com/494/Dear-Zindagi-Hindi-2016-500x500.jpg"},
-        {"name": "Levitating",              "artist": "Dua Lipa",         "album_art": "https://c.saavncdn.com/665/Future-Nostalgia-English-2020-20260306223201-500x500.jpg"},
-        {"name": "Good Life",               "artist": "OneRepublic",      "album_art": "https://c.saavncdn.com/110/Waking-Up-English-2009-20251203081546-500x500.jpg"},
-        {"name": "Ilahi",                   "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/440/Yeh-Jawaani-Hai-Deewani-2013-500x500.jpg"},
-        {"name": "Raabta",                  "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/603/Agent-Vinod-2012-500x500.jpg"},
+        "levitating dua lipa",
+        "good life onerepublic",
+        "happy pharrell williams",
+        "on top of the world imagine dragons",
+        "count on me bruno mars",
+        "roar katy perry",
+        "pasoori ali sethi",
+        "sunflower post malone",
     ],
-
+    "angry": [
+        "fix you coldplay",
+        "someone like you adele",
+        "let her go passenger",
+        "the scientist coldplay",
+        "channa mereya arijit singh",
+        "tujhe kitna chahne lage arijit singh",
+        "drivers license olivia rodrigo",
+        "stay rihanna",
+    ],
     "happy": [
-        {"name": "Dynamite",                "artist": "BTS",              "album_art": "https://c.saavncdn.com/918/Dynamite-DayTime-Version-English-2021-20230404202342-500x500.jpg"},
-        {"name": "Kesariya",                "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/871/Brahmastra-Original-Motion-Picture-Soundtrack-Hindi-2022-20221006155213-500x500.jpg"},
-        {"name": "Gangnam Style",           "artist": "PSY",              "album_art": "https://c.saavncdn.com/032/Gangnam-Style--English-2012-20200421073139-500x500.jpg"},
-        {"name": "Shape of You",            "artist": "Ed Sheeran",       "album_art": "https://c.saavncdn.com/126/Shape-of-You-English-2017-500x500.jpg"},
-        {"name": "Naal Nachna",             "artist": "Shashwat Sachdev", "album_art": "https://c.saavncdn.com/570/Naal-Nachna-From-Dhurandhar-Hindi-2025-20251211114255-500x500.jpg"},
+        "shape of you ed sheeran",
+        "dance monkey tones and i",
+        "blinding lights weeknd",
+        "dynamite bts",
+        "as it was harry styles",
+        "watermelon sugar harry styles",
+        "kesariya arijit singh",
+        "bad guy billie eilish",
     ],
-
+    "fear": [
+        "heat waves glass animals",
+        "perfect ed sheeran",
+        "hall of fame the script",
+        "stronger kelly clarkson",
+        "brave sara bareilles",
+        "believer imagine dragons",
+        "kabira arijit singh",
+        "thunder imagine dragons",
+    ],
     "neutral": [
-        {"name": "Raataan Lambiyan",        "artist": "Jubin Nautiyal",   "album_art": "https://c.saavncdn.com/238/Shershaah-Original-Motion-Picture-Soundtrack--Hindi-2021-20210815181610-500x500.jpg"},
-        {"name": "Sunflower",               "artist": "Post Malone",      "album_art": "https://c.saavncdn.com/280/Spider-Man-Into-the-Spider-Verse-Deluxe-Edition-Soundtrack-From-Inspired-By-The-Motion-Picture-English-2019-20250805024215-500x500.jpg"},
-        {"name": "Heat Waves",              "artist": "Glass Animals",    "album_art": "https://c.saavncdn.com/136/Heat-Waves-Expansion-Pack--English-2022-20220128063818-500x500.jpg"},
-        {"name": "Kho Gaye Hum Kahan",      "artist": "Jasleen Royal",    "album_art": "https://c.saavncdn.com/279/Baar-Baar-Dekho-Hindi-2016-20181205114400-500x500.jpg"},
-        {"name": "Tum Hi Ho",               "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/430/Aashiqui-2-Hindi-2013-500x500.jpg"},
+        "lovely billie eilish",
+        "save your tears weeknd",
+        "golden jungkook",
+        "peaches justin bieber",
+        "anti hero taylor swift",
+        "starboy weeknd",
+        "khairiyat arijit singh",
+        "beautiful in white charlie puth",
     ],
-
     "surprise": [
-        {"name": "Happy",                   "artist": "Pharrell Williams","album_art": "https://c.saavncdn.com/877/G-I-R-L-English-2014-20250924204116-500x500.jpg"},
-        {"name": "Butter",                  "artist": "BTS",              "album_art": "https://c.saavncdn.com/918/Dynamite-DayTime-Version-English-2021-20230404202342-500x500.jpg"},
-        {"name": "Ilahi",                   "artist": "Arijit Singh",     "album_art": "https://c.saavncdn.com/440/Yeh-Jawaani-Hai-Deewani-2013-500x500.jpg"},
-        {"name": "Love You Zindagi",        "artist": "Jasleen Royal",    "album_art": "https://c.saavncdn.com/494/Dear-Zindagi-Hindi-2016-500x500.jpg"},
-        {"name": "Namo Namo",               "artist": "Amit Trivedi",     "album_art": "https://c.saavncdn.com/367/Kedarnath-Hindi-2019-20190219-500x500.jpg"},
-    ]
+        "uptown funk bruno mars",
+        "cant stop the feeling justin timberlake",
+        "shake it off taylor swift",
+        "havana camila cabello",
+        "senorita shawn mendes",
+        "7 rings ariana grande",
+        "ghungroo war hrithik roshan",
+        "stay the kid laroi",
+    ],
 }
 
-def get_youtube_url(song_name: str, artist: str) -> str:
-    query = f"{song_name} {artist} official audio".replace(" ", "+")
-    return f"https://www.youtube.com/results?search_query={query}"
+def get_youtube_url(name: str, artist: str) -> str:
+    q = f"{name} {artist} official audio".replace(" ", "+")
+    return f"https://www.youtube.com/results?search_query={q}"
+
+async def search_deezer(query: str) -> dict | None:
+    try:
+        async with httpx.AsyncClient() as client:
+            r = await client.get(
+                "https://api.deezer.com/search",
+                params={"q": query, "limit": 5},
+                timeout=8.0
+            )
+        data = r.json().get("data", [])
+        if not data:
+            return None
+
+        # pick first track that has a preview
+        for track in data:
+            if track.get("preview"):
+                return track
+        return None
+
+    except Exception as e:
+        print(f"Deezer error for '{query}': {e}")
+        return None
 
 async def get_songs(emotion: str, limit: int = 5) -> list:
-    songs_data = EMOTION_TO_SONGS.get(emotion, EMOTION_TO_SONGS["neutral"])
-    selected   = random.sample(songs_data, min(limit, len(songs_data)))
+    queries = EMOTION_TO_QUERIES.get(emotion, EMOTION_TO_QUERIES["neutral"])
+    pool    = queries[:]
+    random.shuffle(pool)
 
     songs = []
-    for s in selected:
+    for query in pool:
+        if len(songs) >= limit:
+            break
+
+        track = await search_deezer(query)
+        if not track:
+            continue
+
+        name    = track["title"]
+        artist  = track["artist"]["name"]
+        preview = track["preview"]           # always 30s mp3
+        art     = track["album"]["cover_medium"]
+        deezer  = track["link"]
+
         songs.append({
-            "name":        s["name"],
-            "artist":      s["artist"],
-            "youtube_url": get_youtube_url(s["name"], s["artist"]),
-            "album_art":   s["album_art"],
+            "name":        name,
+            "artist":      artist,
+            "preview_url": preview,
+            "youtube_url": get_youtube_url(name, artist),
+            "deezer_url":  deezer,
+            "album_art":   art,
+            "has_preview": True,
         })
 
-    print(f"Songs returned: {len(songs)}")
+    print(f"Songs returned: {len(songs)} for {emotion}")
     return songs

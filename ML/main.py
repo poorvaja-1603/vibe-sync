@@ -86,3 +86,7 @@ async def songs_by_emotion(emotion: str):
 
     songs = await get_songs(emotion)
     return {"emotion": emotion, "songs": songs}
+
+@app.get("/ping")
+def ping():
+    return {"status": "alive"}
